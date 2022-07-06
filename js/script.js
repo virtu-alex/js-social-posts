@@ -23,7 +23,7 @@ Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i 
 
 //creo un ciclo for per stampare in pagina
 
-#Milestone 3
+#////Milestone 3
 Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 # ****BONUS**
  1. Formattare le date in formato italiano (gg/mm/aaaa)
@@ -34,7 +34,6 @@ Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e inc
 
 //RECUPERO ELEMENTO CONTAINER DAL DOM
 const container = document.getElementById('container')
-//RECUPERO BOTTONE LIKES
 
 
 const post = [
@@ -126,15 +125,15 @@ for (let i = 0; i < post.length; i++) {
 };
 
 
-const button = document.querySelector('.like-button')
+//RECUPERO BOTTONE LIKES
+const button = document.querySelectorAll('.like-button')
+//RECUPERO CONTATORE
+const counter = document.querySelectorAll('.js-likes-counter')
 
-
-button.addEventListener('click', function() {
-     button.classList.toggle('like-button--liked')
-     if(button.contains('like-button--liked')){
-        `${current.likes + 1}`
-     }
-    })
-
-
+for (let i = 0; i < button.length; i++)
+button[i].addEventListener('click', function (x) {
+    x.preventDefault();
+    button[i].classList.toggle('like-button--liked')
+    counter[i].innerHTML = `${post[i].likes + 1}`
     
+})
