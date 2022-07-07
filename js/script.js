@@ -68,7 +68,7 @@ const post = [
         id: 4,
         username: 'Fabrizio Mastrobattista',
         userPic: 'https://unsplash.it/300/300?image=133',
-        date: '01/05/2021',
+        date: '21/05/2021',
         text: 'Et nihil ullam aut alias',
         pic: 'https://unsplash.it/600/300?image=315',
         likes: 2000
@@ -77,12 +77,25 @@ const post = [
         id: 5,
         username: 'Enrico Campani',
         userPic: 'https://unsplash.it/300/300?image=122',
-        date: '01/05/2021',
+        date: '11/05/2021',
         text: 'Et nihil ullam aut alias',
         pic: 'https://unsplash.it/600/300?image=325',
         likes: 500
     },
 ]
+
+// post.date.toLocateString('it-IT')
+
+
+//DATA TRANSFORM
+const formatDate = dateString => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString();
+}
+
+// const dateArray = dateString.split('-')
+// const [gg, mm, yyyy] = dateArray
+// return `${mm}/${gg}/${yyyy}`
 
 console.table(post)
 
@@ -98,7 +111,7 @@ for (let i = 0; i < post.length; i++) {
     </div>
     <div class="post-meta__data">
     <div class="post-meta__author">${current.username}</div>
-    <div class="post-meta__time">${current.date}</div>
+    <div class="post-meta__time">${formatDate(current.date)}</div>
     </div>
     </div>
     </div>
@@ -121,19 +134,25 @@ for (let i = 0; i < post.length; i++) {
     </div>
     </div>
     </div>`
-    
 };
-
 
 //RECUPERO BOTTONE LIKES
 const button = document.querySelectorAll('.like-button')
 //RECUPERO CONTATORE
 const counter = document.querySelectorAll('.js-likes-counter')
 
-for (let i = 0; i < button.length; i++)
-button[i].addEventListener('click', function (x) {
-    x.preventDefault();
-    button[i].classList.toggle('like-button--liked')
-    counter[i].innerHTML = `${post[i].likes + 1}`
-    
-})
+for (let i = 0; i < button.length; i++) {
+    button[i].addEventListener('click', function (x) {
+        x.preventDefault();
+
+        if (button[i].classList.contains('like-button--liked')) {
+            button[i].classList.remove('like-button--liked')
+            counter[i].innerHTML = --post[i].likes
+        } else {
+            button[i].classList.add('like-button--liked')
+            counter[i].innerHTML = ++post[i].likes
+
+        }
+
+    })
+}
